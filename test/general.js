@@ -27,11 +27,21 @@ describe("our application", function() {
 
     it('should make a request', function(){
         return chai.request(app)
-        .get('/')
-        .then( res => {
-            expect(res).to.have.status(200)
-        })
+            .get('/')
+            .then( res => {
+                expect(res).to.have.status(200)
+            })
         
+    })
+
+    it('should request a list of our users', function(){
+        return chai.request(app)
+            .get('/users')
+            .then(res => {
+                console.log(res.text)
+                expect(res).to.have.status(200)
+                expect(res.text).to.include("lightsage88")
+            })
     })
 
 })
