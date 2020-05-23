@@ -8,7 +8,7 @@ var mysql = require('mysql')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+var accountRouter = require('./routes/account')
 var app = express();
 
 // view engine setup
@@ -35,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/account', accountRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -52,8 +53,35 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-var http = require('http')
-module.exports = app
-var server = http.createServer(app)
-server.listen(4007)
+function runServer() {
+  const port = process.env.PORT || 4007
+  return new Promise((resolve, reject) => {
+    server = app
+      .listen(port, () => {
+        console.log(`Your app is listening on port ${port}`)
+        resolve(server)
+      })
+      .on("error", err => {
+        reject(err)
+      })
+  })
+}
 
+function closeServer() {
+  return new Promise((resolve, reject) => {
+    console.log("Closing Server")
+    server.close(err => {
+      if(err) {
+        reject(err)
+        return
+      }
+      resolve()
+    })
+  })
+}
+ 
+if(require.main === module) {
+  runServer().catch(err => console.error(err))
+}
+
+module.exports = {app, runServer, closeServer}
