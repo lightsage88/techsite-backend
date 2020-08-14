@@ -1,6 +1,15 @@
 const express = require('express')
 const router = express.Router()
-
+const multer = require('multer')
+const fs = require('fs')
+// const storage = multer.diskStorage({
+//   destination: './',
+//   filename: function(req, file, cb){
+//     console.log('shit', file)
+//     cb(null, Date.now() + '.' + file.mimetype.split('/')[1])
+//   }
+// })
+var upload = multer({dest: './upload'})
 router.get('/', function(req, res) {
   //we select all from the projects table
   res.locals.connection.query(`SELECT * FROM projects`, function(error, results, fields) {
@@ -14,9 +23,23 @@ router.get('/', function(req, res) {
   //we send that data to the front-end
 })
 
+router.post('/uploadProjectPicture', upload.single('image'), (req, res) => {
+  console.log("WHAT I TELL YOU ABOUT MESSING WITH M LEVELS BOY?" , req.file)
+  var tmp_path = req.file.path
+  var target_path = "./resources/static/assets/uploads" + req.file.originalname
+
+  var src = fs.createReadStream(tmp_path)
+  var dest = fs.createWriteStream(target_path)
+  src.pipe(dest)
+  // src.on('end', function(){ res.render('complete')})
+  src.on('error', function(err) { res.render('error')})
+})
+
+
+
 router.post('/upload', function(req, res, next) {
   //we make a variable that contains the name, picture, summary, array of technology objects, repo link, and app link
-  console.log("YOU LOOK CONFUSED BOI", req.body.projectDetails)
+  console.log("YOU LOOK CONFUSED BOI", req.body.projectDetails.projectImage)
   const {
     projectName, 
     projectImage,
@@ -30,7 +53,6 @@ router.post('/upload', function(req, res, next) {
     testing
   } = req.body.projectDetails
   
-  console.log(languages)
 
   //We make a connection to our MySQL DB and implant the values of the newProject into the database
   res.locals.connection.query(`INSERT INTO projects (name, picture, summary, repolink, projectlink, backgroundpic, languages, framework_frontend, framework_backend, libraries, testing) 

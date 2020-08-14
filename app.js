@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser')
 var mysql = require('mysql')
-var fs = require("fs")
+
 
 var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
@@ -15,6 +15,7 @@ var projectsRouter = require('./routes/projects')
 var techRouter = require('./routes/tech')
 var svgIconsRouter = require('./routes/svg_icons')
 var app = express();
+
 
 
 // view engine setup
