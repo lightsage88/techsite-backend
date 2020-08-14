@@ -1,5 +1,11 @@
 const express = require('express')
 const router = express.Router()
+const fs = require('fs')
+
+var solidSnake = {
+  img: fs.readFileSync("./resources/static/assets/icons/Snake.png"),
+  file_name: "Snake"
+}
 
 router.get('/', function(req, res) {
   //we select all from the projects table
@@ -28,6 +34,14 @@ router.post('/upload', function(req, res, next) {
   //If successful we send a 200 
 
   //If there is an error we send a 401 
+})
+
+router.post('/snake', function(req, res, next) {
+  console.log('never give up')
+  console.log(solidSnake, res.body)
+  res.locals.connection.query(`INSERT INTO imageLesson SET ?`, solidSnake, function(err, result) {
+    console.log(result)
+  })
 })
 
 

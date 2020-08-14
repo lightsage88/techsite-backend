@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser')
 var mysql = require('mysql')
+var fs = require("fs")
 
 var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
@@ -60,6 +61,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
 
 function runServer() {
   const port = process.env.PORT || 4007
