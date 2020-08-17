@@ -6,12 +6,23 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser')
 var mysql = require('mysql')
+var upload = require('./config/multer.config')
+
+global.__basedir = __dirname
+
+const db = require('./config/db.config')
+
+db.sequelize.sync({force: true}).then(() => {
+  console.log('Drop and Resync with { force: true }')
+})
+
 
 
 var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
 var accountRouter = require('./routes/account')
 var projectsRouter = require('./routes/projects')
+var fileRouter = require('./routes/file')
 var techRouter = require('./routes/tech')
 var svgIconsRouter = require('./routes/svg_icons')
 var app = express();
@@ -23,16 +34,16 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 //Database Connection
-app.use(function(req,res,next) {
-  res.locals.connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'Walruses8993',
-    database: 'tech_site'
-  })
-  res.locals.connection.connect()
-  next()
-})
+// app.use(function(req,res,next) {
+//   res.locals.connection = mysql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'Walruses8993',
+//     database: 'tech_site'
+//   })
+//   res.locals.connection.connect()
+//   next()
+// })
 
 app.use(logger('dev'));
 app.use(bodyParser.json())
@@ -45,6 +56,8 @@ app.use('/users', usersRouter);
 app.use('/account', accountRouter)
 app.use('/projects', projectsRouter)
 app.use('/tech', techRouter)
+//require('./routes/file)(app, router, upload)
+app.use('/file', fileRouter)
 app.use('/svg_icons', svgIconsRouter)
 
 // catch 404 and forward to error handler
@@ -96,4 +109,4 @@ if(require.main === module) {
   runServer().catch(err => console.error(err))
 }
 
-module.exports = {app, runServer, closeServer}
+module.exports = {app, runServer, closeServer, upload}

@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const multer = require('multer')
+const db = require('../config/db.config')
+const Project = db.projects
 const fs = require('fs')
 // const storage = multer.diskStorage({
 //   destination: './',
@@ -12,7 +14,7 @@ const fs = require('fs')
 var upload = multer({dest: './upload'})
 router.get('/', function(req, res) {
   //we select all from the projects table
-  res.locals.connection.query(`SELECT * FROM projects`, function(error, results, fields) {
+  Project(`SELECT * FROM projects`, function(error, results, fields) {
     if(error) {
       throw error
     } else {
@@ -24,17 +26,25 @@ router.get('/', function(req, res) {
 })
 
 router.post('/uploadProjectPicture', upload.single('image'), (req, res) => {
-  console.log("WHAT I TELL YOU ABOUT MESSING WITH M LEVELS BOY?" , req.file)
-  var tmp_path = req.file.path
-  var target_path = "./resources/static/assets/uploads" + req.file.originalname
+  console.log(req.body)
+  console.log(req.file)
 
-  var src = fs.createReadStream(tmp_path)
-  var dest = fs.createWriteStream(target_path)
-  src.pipe(dest)
-  // src.on('end', function(){ res.render('complete')})
-  src.on('error', function(err) { res.render('error')})
 })
 
+
+
+// var solidSnake = {
+//   img: fs.readFileSync("./resources/static/assets/icons/Snake.png"),
+//   file_name: "Snake"
+// }
+
+// router.post('/snake', function(req, res, next) {
+//   console.log('never give up')
+//   console.log(solidSnake, res.body)
+//   res.locals.connection.query(`INSERT INTO imageLesson SET ?`, solidSnake, function(err, result) {
+//     console.log(result)
+//   })
+// })
 
 
 router.post('/upload', function(req, res, next) {
