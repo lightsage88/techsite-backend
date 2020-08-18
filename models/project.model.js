@@ -25,7 +25,13 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.BLOB('long')
     },
     languages: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      get: function() {
+        return JSON.parse(this.getDataValue('languages'))
+      },
+      set: function(val) {
+        return this.setDataValue('languages', JSON.stringify(val))
+      }
     },
     framework_frontend: {
       type: Sequelize.STRING

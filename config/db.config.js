@@ -24,5 +24,6 @@ db.files = require('../models/file.model.js')(sequelize, Sequelize)
 db.projects = require('../models/project.model')(sequelize, Sequelize)
 db.techtypes = require('../models/tech_type.model')(sequelize, Sequelize)
 db.techknowns = require('../models/tech_known.model')(sequelize, Sequelize)
+db.users = require('../models/user.model.js')(sequelize, Sequelize)
 
 module.exports = db

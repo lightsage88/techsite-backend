@@ -19,43 +19,40 @@ exports.deleteProject = (req, res) => {
 }
 
 exports.uploadProject = (req, res) => {
-  console.log('da file')
-  console.log(req.file)
   console.log('da body')
   console.log(req.body)
   
   console.log('need to convert the commented code to sequelize speak')
     // //we make a variable that contains the name, picture, summary, array of technology objects, repo link, and app link
-    // console.log("YOU LOOK CONFUSED BOI", req.body.projectDetails.projectImage)
-    // const {
-    //   projectName, 
-    //   projectImage,
-    //   projectLink, 
-    //   repoLink, 
-    //   description, 
-    //   languages, 
-    //   framework_frontend, 
-    //   framework_backend, 
-    //   libraries, 
-    //   testing
-    // } = req.body.projectDetails
+    console.log("YOU LOOK CONFUSED BOI")
+    const {
+      projectName, 
+      projectImage,
+      projectLink, 
+      repoLink, 
+      description, 
+      languages, 
+      framework_frontend, 
+      framework_backend, 
+      libraries, 
+      testing
+    } = req.body.projectDetails
     
-  
-    // //We make a connection to our MySQL DB and implant the values of the newProject into the database
-    // res.locals.connection.query(`INSERT INTO projects (name, picture, summary, repolink, projectlink, backgroundpic, languages, framework_frontend, framework_backend, libraries, testing) 
-    // VALUES ('${projectName}', '${projectImage}', '${description}', '${repoLink}', '${projectLink}', ${null}, JSON_ARRAY('${languages}'), JSON_ARRAY('${framework_frontend}'), JSON_ARRAY('${framework_backend}'), JSON_ARRAY('${libraries}'), JSON_ARRAY('${testing}'))`, function(error, results, fields) {
-    //   if(error) {
-    //     throw error
-    //   } else {
-    //     res.send(results)
-    //   }
-    // })
-    // //we make sure the project has an id number too
-  
-    // //If successful we send a 200 
-  
-    // //If there is an error we send a 401 
-  
+    Project.create({
+      name: projectName, 
+      // projectImage,
+      projectlink: projectLink, 
+      repolink: repoLink, 
+      summary: description, 
+      languages, 
+      framework_frontend, 
+      framework_backend, 
+      libraries, 
+      testing
+    })
+    .then(result => {
+      res.json(result)
+    })  
 }
 
 exports.uploadFile = (req, res) => {

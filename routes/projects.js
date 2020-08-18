@@ -15,7 +15,7 @@ var upload = multer({dest: './upload'})
 
 router.get('/', projectWorker.retrieveAllProjects)
 router.get('/uploadProjectPicture', upload.single('uploadfile'), projectWorker.uploadFile)
-router.post('/upload', upload.single('image'), projectWorker.uploadProject)
+router.post('/upload', projectWorker.uploadProject)
 router.post('/delete', projectWorker.deleteProject)
 
 module.exports = router
