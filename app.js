@@ -12,9 +12,9 @@ global.__basedir = __dirname
 
 const db = require('./config/db.config')
 
-db.sequelize.sync({force: true}).then(() => {
-  console.log('Drop and Resync with { force: true }')
-})
+// db.sequelize.sync({force: true}).then(() => {
+//   console.log('Drop and Resync with { force: true }')
+// })
 
 
 
