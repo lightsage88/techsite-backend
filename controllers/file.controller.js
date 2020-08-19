@@ -3,7 +3,15 @@ var stream = require('stream')
 const db = require('../config/db.config')
 const File = db.files
 
+createFileForDB = (data) => {
+  console.log('createFileForDB running', data)
+
+}
+
+
 exports.uploadFile = (req, res) => {
+
+
   File.create({
     type: req.file.mimetype,
     name: req.file.originalname,

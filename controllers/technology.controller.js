@@ -1,6 +1,8 @@
+var stream = require('stream')
 const db = require('../config/db.config')
 const TechType = db.techtypes
 const TechKnown = db.techknowns
+const createFileForDB = require('../helperMethods/createFileForDB')
 
 exports.retrieveAllTech = (req, res) => {
   TechKnown.findAll()
@@ -17,13 +19,28 @@ exports.retrieveTechTypes = (req, res) => {
 }
 
 exports.addTechKnown = (req, res) => {
-  const { name, technology_type_id } = req.body
-  console.log(name, technology_type_id)
+  console.log('ganlachocho', req.body)
+  const { technologyName, tech_type, tech_website } = req.body.data
   TechKnown.create({
-    name,
-    technology_type_id
+    name: technologyName,
+    technology_type_id: tech_type,
+    tech_website
   })
   .then(result => {
     res.json(result)
   })
+}
+
+exports.uploadFileToTechTable = (req, res) => {
+  console.log('updloadFileToTechTable running...', req.body)
+  const { id } = req.body
+  const file = createFileForDB(req.file)
+  TechKnown.upsert({
+    tech_id: id,
+    image: file.data
+  })
+  .then(result => {
+    res.json(result)
+  })
+
 }

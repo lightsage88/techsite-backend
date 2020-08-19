@@ -1,12 +1,15 @@
 const express = require('express')
 const router = express.Router()
 const techWorker = require('../controllers/technology.controller')
-
+const multer = require('multer')
+var storage = multer.memoryStorage()
+var upload = multer({storage: storage})
 
 
 router.get('/', techWorker.retrieveAllTech)
 router.get('/techTypes', techWorker.retrieveTechTypes)
 router.post('/upload', techWorker.addTechKnown)
+router.post('/uploadTechImage', upload.single('image'), techWorker.uploadFileToTechTable)
 
 // router.post('/upload', function(req, res, next) {
 //   //we make a variable that contains the name, picture, summary, array of technology objects, repo link, and app link
