@@ -27,16 +27,17 @@ module.exports = (sequelize, Sequelize) => {
     languages: {
       type: Sequelize.STRING,
       get: function() {
+        console.log('getting')
         const rawValue = this.getDataValue('languages')
-        //We use Object.values(---) because rawValue saves as an object
-        return rawValue ? Object.values(rawValue) : null
+        return rawValue ? rawValue.toString().split(',') : null
       },
       // set: function(val) {
+      //   console.log('setting')
       //   const rawValue = val
       //   console.log('whats up val?', val, typeof(val))
-      //   console.log(rawValue.join(','))
+      //   console.log(rawValue.toString())
       //   // return rawValue ? Object.values(rawValue) : null
-      //   return this.setDataValue(rawValue.join(','))
+      //   return this.setDataValue({languages: rawValue.toString()})
       // }
     },
     framework_frontend: {
