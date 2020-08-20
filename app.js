@@ -62,6 +62,8 @@ app.use('/svg_icons', svgIconsRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
+  console.log('the req' + req)
+  console.log('the res' + res)
   next(createError(404));
 });
 

@@ -1,6 +1,7 @@
 const db = require('../config/db.config')
+const createFileForDB = require('../helperMethods/createFileForDB')
+
 const Project = db.projects
-const File = db.files
 
 exports.retrieveAllProjects = (req, res) => {
   Project.findAll()
@@ -31,30 +32,37 @@ exports.uploadProject = (req, res) => {
       projectLink, 
       repoLink, 
       description, 
-      languages, 
-      framework_frontend, 
-      framework_backend, 
-      libraries, 
-      testing
-    } = req.body.projectDetails
+      technologies
+    } = req.body.data
     
+    console.log('coolgirl', projectName, projectImage, projectLink, repoLink, description, technologies)
+
     Project.create({
       name: projectName, 
-      // projectImage,
+      // image: projectImage,
       projectlink: projectLink, 
       repolink: repoLink, 
-      summary: description, 
-      languages, 
-      framework_frontend, 
-      framework_backend, 
-      libraries, 
-      testing
+      summary: description,
+      technologies: technologies 
     })
     .then(result => {
+      console.log('sdfsfsds')
+      console.log(result)
       res.json(result)
     })  
 }
 
-exports.uploadFile = (req, res) => {
-  console.log('this is where we need to get our picture inserted into the row that was created for the project in the right cell')
+exports.uploadFileToProjectTable = (req, res) => {
+  console.log('CHICKEN SHROOMS ARE GUD', req.body)
+  console.log('Bisquick dumpings', req.file)
+  const { id } = req.body
+  const file = createFileForDB(req.file)
+  console.log('this is the file', file)
+  Project.upsert({
+    project_id: id,
+    image: file.data
+  })
+  .then(result => {
+    res.json(result)
+  })
 }

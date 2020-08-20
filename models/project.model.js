@@ -8,9 +8,7 @@ module.exports = (sequelize, Sequelize) => {
     name: {
       type: Sequelize.STRING
     },
-    //TODO: may not use this for now but lets keep it anyways
-    //TODO: Blob may not be long in this case
-    picture: {
+    image: {
       type: Sequelize.BLOB('long')
     },
     summary: {
@@ -22,36 +20,21 @@ module.exports = (sequelize, Sequelize) => {
     projectlink: {
       type: Sequelize.STRING
     },
-    backgroundpic: {
-      type: Sequelize.BLOB('long')
-    },
-    languages: {
+    technologies: {
       type: Sequelize.STRING,
       get: function() {
         console.log('getting')
-        const rawValue = this.getDataValue('languages')
+        const rawValue = this.getDataValue('technologies')
         return rawValue ? rawValue.toString().split(',') : null
       },
-      // set: function(val) {
-      //   console.log('setting')
-      //   const rawValue = val
-      //   console.log('whats up val?', val, typeof(val))
-      //   console.log(rawValue.toString())
-      //   // return rawValue ? Object.values(rawValue) : null
-      //   return this.setDataValue({languages: rawValue.toString()})
-      // }
-    },
-    framework_frontend: {
-      type: Sequelize.STRING
-    },
-    framework_backend: {
-      type: Sequelize.STRING
-    },
-    testing: {
-      type: Sequelize.STRING
-    },
-    libraries: {
-      type: Sequelize.STRING
+      set: function(val) {
+        console.log('setting')
+        const rawValue = val
+        console.log('whats up val?', val, typeof(val))
+        console.log(rawValue.toString())
+        // return rawValue ? Object.values(rawValue) : null
+        return this.setDataValue({technologies: rawValue.toString()})
+      }
     }
   }, {
     timestamps: false

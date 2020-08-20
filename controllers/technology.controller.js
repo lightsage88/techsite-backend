@@ -1,8 +1,9 @@
 var stream = require('stream')
 const db = require('../config/db.config')
+const createFileForDB = require('../helperMethods/createFileForDB')
+
 const TechType = db.techtypes
 const TechKnown = db.techknowns
-const createFileForDB = require('../helperMethods/createFileForDB')
 
 exports.retrieveAllTech = (req, res) => {
   TechKnown.findAll()
