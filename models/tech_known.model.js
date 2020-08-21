@@ -16,6 +16,9 @@ module.exports = (sequelize, Sequelize) => {
     },
     image: {
       type: Sequelize.BLOB('long')
+    },
+    mimetype: {
+      type: Sequelize.STRING
     }
   }, {
     timestamps: false

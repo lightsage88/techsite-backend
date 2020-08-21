@@ -36,9 +36,11 @@ exports.uploadFileToTechTable = (req, res) => {
   console.log('updloadFileToTechTable running...', req.body)
   const { id } = req.body
   const file = createFileForDB(req.file)
+  console.log('THIS IS THE FILE WE MADE', file)
   TechKnown.upsert({
     tech_id: id,
-    image: file.data
+    image: file.data,
+    mimetype: file.type
   })
   .then(result => {
     res.json(result)

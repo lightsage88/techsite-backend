@@ -60,7 +60,8 @@ exports.uploadFileToProjectTable = (req, res) => {
   console.log('this is the file', file)
   Project.upsert({
     project_id: id,
-    image: file.data
+    image: file.data,
+    mimetype: file.type
   })
   .then(result => {
     res.json(result)
