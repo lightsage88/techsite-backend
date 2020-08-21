@@ -29,15 +29,16 @@ module.exports = (sequelize, Sequelize) => {
         console.log('getting')
         const rawValue = this.getDataValue('technologies')
         return rawValue ? rawValue.toString().split(',') : null
-      },
-      set: function(val) {
-        console.log('setting')
-        const rawValue = val
-        console.log('whats up val?', val, typeof(val))
-        console.log(rawValue.toString())
-        // return rawValue ? Object.values(rawValue) : null
-        return this.setDataValue({technologies: rawValue.toString()})
       }
+      // },
+      // set: function(val) {
+      //   console.log('setting')
+      //   const rawValue = val
+      //   console.log('whats up val?', val, typeof(val))
+      //   console.log(rawValue.toString())
+      //   // return rawValue ? Object.values(rawValue) : null
+      //   return this.setDataValue({technologies: rawValue.toString()})
+      // }
     }
   }, {
     timestamps: false
