@@ -30,18 +30,20 @@ exports.uploadProject = (req, res) => {
       projectName, 
       projectImage,
       projectLink, 
-      repoLink, 
+      repoLink,
+      apirepoLink, 
       description, 
       technologies
     } = req.body.data
     
-    console.log('coolgirl', projectName, projectImage, projectLink, repoLink, description, technologies)
+    console.log('coolgirl', projectName, projectImage, projectLink, repoLink, apirepoLink, description, technologies)
 
     Project.create({
       name: projectName, 
       // image: projectImage,
       projectlink: projectLink, 
       repolink: repoLink, 
+      apirepolink: apirepoLink,
       summary: description,
       technologies: technologies 
     })

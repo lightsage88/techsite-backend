@@ -20,6 +20,9 @@ module.exports = (sequelize, Sequelize) => {
     repolink: {
       type: Sequelize.STRING
     },
+    apirepolink: {
+      type: Sequelize.STRING
+    },
     projectlink: {
       type: Sequelize.STRING
     },

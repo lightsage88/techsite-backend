@@ -20,7 +20,6 @@ const db = require('./config/db.config')
 
 var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
-var accountRouter = require('./routes/account')
 var projectsRouter = require('./routes/projects')
 var fileRouter = require('./routes/file')
 var techRouter = require('./routes/tech')
@@ -53,10 +52,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/account', accountRouter)
 app.use('/projects', projectsRouter)
 app.use('/tech', techRouter)
-//require('./routes/file)(app, router, upload)
 app.use('/file', fileRouter)
 app.use('/svg_icons', svgIconsRouter)
 
