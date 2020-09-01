@@ -2,6 +2,7 @@ require('dotenv').config()
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+var cors = require('cors')
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser')
@@ -43,7 +44,7 @@ app.set('view engine', 'ejs');
 //   res.locals.connection.connect()
 //   next()
 // })
-
+app.use(cors())
 app.use(logger('dev'));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
