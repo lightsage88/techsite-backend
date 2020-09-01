@@ -2,10 +2,9 @@ language: node_js
 node_js: node
 deploy:
   provider: heroku
-  app: sleepy-hollows-70516
   api_key:
     secure: iMo/DTbJHL4kWusZjcHE8oD8JqsD28Otd/4UNEg1j9/RQfWKSTzZrYwAgVkXiabTVWfE5LQ5bEG8E60i43mzChyUiGe+zoTeZtaTZl464dijEpQ4igajQPDzini/9CVpDZFkMsaW76SUoLzHDdkUvd+LiGJuAUV02/e2HjxxoOdKwCiZ9iprxgsLKw6W5aucVzkygQvs2jOoeza7E8TzmuSKif4sNIvqSqqLkaqaWdeIYzQzGrfFfpgGBnGxZ4XRQdm9VKQMTJ7lxRCVbzcgxVgNQ9V70s1a+uPxCBp+wnEzkHZeHjFJ+NmRxKpfe6AxNL1NVuXfR1Ss8iF4T/Qh7ucAZET8qSsp9QxfXtsnT+XLP64QAgZptubItETeI4mPR52ta3mDuGoY86cKzQ2MtKTuE2KkKFGkq2zH8k7SgFn6GEvTeD8EKaNmlfQL4zJmtlROHM6ukeAiiQo58opqpBp6b3KXK24fo54pI5hpZAadYMh7QG0oNH1ADrbWTb/DvoaY0ktZQddxe7RJssZvHYwTHM+0C0QLvXox0XYPSecLk6b21G+fxh1byVA52q264PdofuS4BjI/FMZD/bb7lwgu7p8ZZKIGdykid9r3PJItSz0tzFo3piu8rFnGZHPblD0utKPd+P3GGNunUfJbiM4Qx3czhfw8sbh+W5KS0tE=
-  app: techsite-backend
+  app: sleepy-hollows-70516
   on:
     repo: lightsage88/techsite-backend
   skip_cleanup: 'true'
