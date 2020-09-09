@@ -20,12 +20,6 @@ exports.deleteProject = (req, res) => {
 }
 
 exports.uploadProject = (req, res) => {
-  console.log('da body')
-  console.log(req.body)
-  
-  console.log('need to convert the commented code to sequelize speak')
-    // //we make a variable that contains the name, picture, summary, array of technology objects, repo link, and app link
-    console.log("YOU LOOK CONFUSED BOI")
     const {
       projectName, 
       projectImage,

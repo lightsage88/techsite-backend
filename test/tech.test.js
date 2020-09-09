@@ -5,15 +5,10 @@ const nock = require('nock')
 const axios = require('axios')
 const FormData = require('form-data')
 const chaiNock = require("chai-nock")
-// const { image } = require("../resources/static/assets/icons/Snake.png")
 const responseObject0 = require('./responses/techTestResponse0')
 const responseObject1 = require('./responses/techTestResponse1')
 const responseObject2 = require('./responses/techTestResponse2')
 const responseObject3 = require('./responses/techTestResponse3')
-// const createFileForDB = require('../helperMethods/createFileForDB')
-
-// let file = createFileForDB(image)
-
 
 chai.use(chaiNock)
 
@@ -84,7 +79,9 @@ describe("/upload", () => {
     .catch(err => {
       console.error(err)
     })
-
+    
+    let statusCode = requestNock.interceptors[0].statusCode
+    expect(statusCode).to.equal(200)
     expect(responseObject2.tech_id).to.equal(8675309)
     expect(responseObject2.name).to.equal("R")
     expect(responseObject2.technology_type_id).to.equal(8)
@@ -96,32 +93,30 @@ describe("/upload", () => {
 
 describe("/uploadTechImage", () => {
   it("should add a new image for a new tech row", () => {
-
-    //todo have a png ready to process
-    // let file = createFileForDB(image)
-    // console.log('urkel', file)
-    const requestNock = nock(process.env.dbURL + "/tech/uploadTechImage")
-    .post("/tech/uploadTechImage")
+    const requestNock = nock(process.env.dbURL)
+    .post('/tech/uploadTechImage')
     .reply(200, responseObject3)
 
     let formData = new FormData()
     formData.append('image', '')
     formData.append('id', 8675309)
-    console.log(formData)
-
-    axios(process.env.dbURL + "/tech/uploadTechImage", formData, {
+    axios.post(process.env.dbURL + "/tech/uploadTechImage", formData, {
       headers: {
         "Content-Headers": "multipart/form-data"
       }
-    })
-    .then(res => {
-      console.log('coolshirt', res)
     })
     .catch(err => {
       console.error(err)
     })
 
-    return expect(requestNock).not.to.have.been.requested
-
+    let statusCode = requestNock.interceptors[0].statusCode
+    expect(statusCode).to.equal(200)
+    expect(responseObject3[0].tech_id).to.equal("34653")
+    expect(responseObject3[0].mimetype).to.equal("image/png")
+    expect(responseObject3[0].image).to.be.a('object')
+    expect(responseObject3[0].image.type).to.equal('Buffer')
+    expect(responseObject3[0].image.data).to.be.a('array')
+    expect(responseObject3[0].image.data).to.eql([137,80,78,71,13,10,26,10,0])
+    return expect(requestNock).to.have.been.requested
   })
 })
