@@ -20,8 +20,8 @@ exports.retrieveTechTypes = (req, res) => {
 }
 
 exports.addTechKnown = (req, res) => {
-  console.log('ganlachocho', req.body)
   const { technologyName, tech_type, tech_website } = req.body.data
+  console.log(req.body.data)
   TechKnown.create({
     name: technologyName,
     technology_type_id: tech_type,
