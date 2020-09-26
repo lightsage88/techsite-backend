@@ -15,10 +15,10 @@
  
 //Uncomment for Production
 const env = {
-  database: 'adrianr1_techSite',
-  username: 'adrianr1_develop',
-  password: 'Walruses8',
-  host: 'giow2.siteground.us',
+  database: 'tech_site',
+  username: 'lightsage88',
+  password: 'Walruses8993!',
+  host: 'techsite.crsru2uefxmy.us-east-2.rds.amazonaws.com',
   dialect: 'mysql',
   pool: {
     max: 100,
